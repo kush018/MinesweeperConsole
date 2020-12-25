@@ -4,6 +4,10 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+
+        System.out.println("Enter \"exit\" to exit");
+        System.out.println("Enter \"cheat\" to cheat");
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Enter p: ");
@@ -19,7 +23,7 @@ public class Main {
 
             game.display();
 
-            System.out.print("> ");
+            System.out.print("(p q F/C) > ");
             String input = reader.readLine();
 
             int inputP, inputQ;
