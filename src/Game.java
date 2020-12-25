@@ -21,14 +21,6 @@ public class Game {
         gameState = new int[p][q];
         gameBoard = new int[p][q];
 
-        /*
-        q ------------->
-       p{{0, 0, 0, 0, 0},
-       | {0, 0, 0, 0, 0},
-       | {0, 0, 0, 0, 0}}
-      \/
-      */
-
         //fills gameBoard with NULLs
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
@@ -198,6 +190,49 @@ public class Game {
                     System.out.print("{" + gameBoard[i][j] + "} ");
                 } else if (gameState[i][j] == FLAGGED) {
                     System.out.print("(F) ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public int flag(int p, int q) {
+        try {
+            if (gameState[p][q] == NULL) {
+                gameState[p][q] = FLAGGED;
+                return ALL_FINE;
+            } else if (gameState[p][q] == FLAGGED) {
+                gameState[p][q] = NULL;
+                return ALL_FINE;
+            } else {
+                return ALREADY_CLICKED;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return INVALID_POSITION;
+        }
+    }
+
+    public void displayLost(int p, int q) {
+        System.out.print("  q  ");
+        for (int i = 0; i < gameBoard[0].length; i++) {
+            System.out.print(i + "   ");
+        }
+        System.out.println();
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard[i].length; j++) {
+                if (i == p && j == q) {
+                    System.out.print("{M} ");
+                } else {
+                    if (i == 0) {
+                        System.out.print("p 0 ");
+                    } else {
+                        System.out.print("  " + i + " ");
+                    }
+                    if (gameBoard[i][j] == MINE) {
+                        System.out.print("<M> ");
+                    } else {
+                        System.out.print("{" + gameBoard[i][j] + "} ");
+                    }
                 }
             }
             System.out.println();
