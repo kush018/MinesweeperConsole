@@ -55,11 +55,15 @@ public class Main {
                         case Game.PLAYER_WON -> {
                             game.display();
                             System.out.println("You have won!");
+                            System.out.print("Press enter to exit...");
+                            reader.readLine();
                             System.exit(0);
                         }
                         case Game.PLAYER_LOST -> {
                             game.displayLost();
                             System.out.println("You have lost!");
+                            System.out.print("Press enter to exit...");
+                            reader.readLine();
                             System.exit(0);
                         }
                         case Game.ALREADY_FLAGGED -> System.out.println("Tile has been flagged");
