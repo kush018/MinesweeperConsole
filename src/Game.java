@@ -1,8 +1,10 @@
+import java.util.Arrays;
+
 public class Game {
     //gameState stores all user actions (visible to user)
-    private int[][] gameState;
+    private final int[][] gameState;
     //gameBoard stores positions of all mines and other data (invisible to user)
-    private int[][] gameBoard;
+    private final int[][] gameBoard;
 
     //if the space has a mine (for gameBoard only)
     private static final int MINE = -1;
@@ -22,17 +24,13 @@ public class Game {
         gameBoard = new int[p][q];
 
         //fills gameBoard with NULLs
-        for (int i = 0; i < gameBoard.length; i++) {
-            for (int j = 0; j < gameBoard[i].length; j++) {
-                gameBoard[i][j] = NULL;
-            }
+        for (int[] ints : gameBoard) {
+            Arrays.fill(ints, NULL);
         }
 
         //fills gameState with NULLs
-        for (int i = 0; i < gameState.length; i++) {
-            for (int j = 0; j < gameState[i].length; j++) {
-                gameState[i][j] = NULL;
-            }
+        for (int[] ints : gameState) {
+            Arrays.fill(ints, NULL);
         }
 
         //generates mines
@@ -74,42 +72,50 @@ public class Game {
                 if (gameBoard[p - 1][q - 1] == MINE) {
                     count++;
                 }
-            } catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
             try {
                 if (gameBoard[p - 1][q] == MINE) {
                     count++;
                 }
-            } catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
             try {
                 if (gameBoard[p - 1][q + 1] == MINE) {
                     count++;
                 }
-            } catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
             try {
                 if (gameBoard[p][q + 1] == MINE) {
                     count++;
                 }
-            } catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
             try {
                 if (gameBoard[p + 1][q + 1] == MINE) {
                     count++;
                 }
-            } catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
             try {
                 if (gameBoard[p + 1][q] == MINE) {
                     count++;
                 }
-            } catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
             try {
                 if (gameBoard[p + 1][q - 1] == MINE) {
                     count++;
                 }
-            } catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
             try {
                 if (gameBoard[p][q - 1] == MINE) {
                     count++;
                 }
-            } catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
             return count;
         }
     }
@@ -179,9 +185,9 @@ public class Game {
         System.out.println();
         for (int i = 0; i < gameState.length; i++) {
             for (int j = 0; j < gameState[i].length; j++) {
-                if (i == 0) {
+                if (i == 0 && j == 0) {
                     System.out.print("p 0 ");
-                } else {
+                } else if (j == 0) {
                     System.out.print("  " + i + " ");
                 }
                 if (gameState[i][j] == NULL) {
@@ -212,7 +218,7 @@ public class Game {
         }
     }
 
-    public void displayLost(int p, int q) {
+    public void displayLost() {
         System.out.print("  q  ");
         for (int i = 0; i < gameBoard[0].length; i++) {
             System.out.print(i + "   ");
@@ -220,19 +226,15 @@ public class Game {
         System.out.println();
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
-                if (i == p && j == q) {
-                    System.out.print("{M} ");
+                if (j == 0 && i == 0) {
+                    System.out.print("p 0 ");
+                } else if (j == 0) {
+                    System.out.print("  " + i + " ");
+                }
+                if (gameBoard[i][j] == MINE) {
+                    System.out.print("<M> ");
                 } else {
-                    if (i == 0) {
-                        System.out.print("p 0 ");
-                    } else {
-                        System.out.print("  " + i + " ");
-                    }
-                    if (gameBoard[i][j] == MINE) {
-                        System.out.print("<M> ");
-                    } else {
-                        System.out.print("{" + gameBoard[i][j] + "} ");
-                    }
+                    System.out.print("{" + gameBoard[i][j] + "} ");
                 }
             }
             System.out.println();
